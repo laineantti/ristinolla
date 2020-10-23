@@ -12,7 +12,7 @@ function App() {
 		else setVuoro("O")
 	}
 
-	// pelitilanne 
+	// pelitilanne
 	useEffect(() => {
 		if (voittaja === "") setTeksti("Pelaajan " + vuoro + " vuoro.")
 		else setTeksti("Pelaaja " + voittaja + " voitti!")
@@ -40,8 +40,8 @@ function App() {
 			}
 		}
 		// keski
-		if (ruutu3 !== " ") {
-			if (ruutu3 === ruutu4 && ruutu4 === ruutu5) {
+		if (ruutu4 !== " ") {
+			if (ruutu4 === ruutu5 && ruutu5 === ruutu6) {
 				asetaVoittaja(vuoro)
 			}
 		}
@@ -86,7 +86,7 @@ function App() {
 			}
 		}
 	}
-	
+
 	useEffect(voitonTarkistaminen, [vuoro])
 
 	const asetaVoittaja = () => {
