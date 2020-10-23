@@ -15,7 +15,7 @@ function App() {
 	// pelitilanne 
 	useEffect(() => {
 		if (voittaja === "") setTeksti("Pelaajan " + vuoro + " vuoro.")
-		else setTeksti("Pelaaja " + vuoro + " voitti!")
+		else setTeksti("Pelaaja " + voittaja + " voitti!")
 	}, [voittaja, vuoro])
 
 	// lainausmerkkien välissä oleva " " on tyhjä merkki(ei välilyönti),
@@ -29,6 +29,70 @@ function App() {
 	const [ruutu7, setRuutu7] = useState(" ")
 	const [ruutu8, setRuutu8] = useState(" ")
 	const [ruutu9, setRuutu9] = useState(" ")
+
+	const voitonTarkistaminen = () => {
+		// VAAKATASOSSA
+		//==================================================
+		// ylä
+		if (ruutu1 !== " ") {
+			if (ruutu1 === ruutu2 && ruutu2 === ruutu3) {
+				asetaVoittaja(vuoro)
+			}
+		}
+		// keski
+		if (ruutu3 !== " ") {
+			if (ruutu3 === ruutu4 && ruutu4 === ruutu5) {
+				asetaVoittaja(vuoro)
+			}
+		}
+		// ala
+		if (ruutu7 !== " ") {
+			if (ruutu7 === ruutu8 && ruutu8 === ruutu9) {
+				asetaVoittaja(vuoro)
+			}
+		}
+		// SARAKKEET PYSTYSSÄ
+		//==================================================
+		// vasen
+		if (ruutu1 !== " ") {
+			if (ruutu1 === ruutu4 && ruutu4 === ruutu7) {
+				asetaVoittaja(vuoro)
+			}
+		}
+		// keski
+		if (ruutu2 !== " ") {
+			if (ruutu2 === ruutu5 && ruutu5 === ruutu8) {
+				asetaVoittaja(vuoro)
+			}
+		}
+		// oikea
+		if (ruutu3 !== " ") {
+			if (ruutu3 === ruutu6 && ruutu6 === ruutu9) {
+				asetaVoittaja(vuoro)
+			}
+		}
+		// VINOTTAIN
+		//==================================================
+		// vasemmasta ylänurkasta oikeaan alanurkkaan
+		if (ruutu1 !== " ") {
+			if (ruutu1 === ruutu5 && ruutu5 === ruutu9) {
+				asetaVoittaja(vuoro)
+			}
+		}
+		// oikeasta ylänurkasta vasempaan alanurkkaan
+		if (ruutu3 !== " ") {
+			if (ruutu3 === ruutu5 && ruutu5 === ruutu7) {
+				asetaVoittaja(vuoro)
+			}
+		}
+	}
+	
+	useEffect(voitonTarkistaminen, [vuoro])
+
+	const asetaVoittaja = () => {
+		if (vuoro === "X") setVoittaja("O")
+		else setVoittaja("X")
+	}
 
 	const pelaajanVuoro = (event) => {
 		if (voittaja === "") {
@@ -95,67 +159,9 @@ function App() {
 	}
 
 	const vaihdaVuoroa = () => {
-		voitonTarkistaminen()
 		if (voittaja === "") {
 			if (vuoro === "X") setVuoro("O")
 			else setVuoro("X")
-		}
-	}
-
-	const voitonTarkistaminen = () => {
-		// VAAKATASOSSA
-		//==================================================
-		// ylä
-		if (ruutu1 !== " ") {
-			if (ruutu1 === ruutu2 && ruutu2 === ruutu3) {
-				setVoittaja(vuoro)
-			}
-		}
-		// keski
-		if (ruutu3 !== " ") {
-			if (ruutu3 === ruutu4 && ruutu4 === ruutu5) {
-				setVoittaja(vuoro)
-			}
-		}
-		// ala
-		if (ruutu7 !== " ") {
-			if (ruutu7 === ruutu8 && ruutu8 === ruutu9) {
-				setVoittaja(vuoro)
-			}
-		}
-		// SARAKKEET PYSTYSSÄ
-		//==================================================
-		// vasen
-		if (ruutu1 !== " ") {
-			if (ruutu1 === ruutu4 && ruutu4 === ruutu7) {
-				setVoittaja(vuoro)
-			}
-		}
-		// keski
-		if (ruutu2 !== " ") {
-			if (ruutu2 === ruutu5 && ruutu5 === ruutu8) {
-				setVoittaja(vuoro)
-			}
-		}
-		// oikea
-		if (ruutu3 !== " ") {
-			if (ruutu3 === ruutu6 && ruutu6 === ruutu9) {
-				setVoittaja(vuoro)
-			}
-		}
-		// VINOTTAIN
-		//==================================================
-		// vasemmasta ylänurkasta oikeaan alanurkkaan
-		if (ruutu1 !== " ") {
-			if (ruutu1 === ruutu5 && ruutu5 === ruutu9) {
-				setVoittaja(vuoro)
-			}
-		}
-		// oikeasta ylänurkasta vasempaan alanurkkaan
-		if (ruutu3 !== " ") {
-			if (ruutu3 === ruutu5 && ruutu5 === ruutu7) {
-				setVoittaja(vuoro)
-			}
 		}
 	}
 
@@ -197,6 +203,7 @@ function App() {
 					</button>
 				</div>
 			</div>
+			<button onClick={() => window.location.reload()}>Uusi peli</button>
 		</div>
 	)
 }
